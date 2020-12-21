@@ -31,6 +31,13 @@
       // 連勝数記録
       let win_num = 0;
 
+      // 最大勝負数
+      let game_max = 25;
+      // 勝負回数
+      let game_num = 0;
+      // あいこの数
+      let draw_num = 0;
+
       // にふくら用おまじない
       let ncmb = new NCMB(appKey, clientKey);
       let JankenScore = ncmb.DataStore("JankenScore");
