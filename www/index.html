@@ -64,17 +64,27 @@
         // 勝敗判定
         let result = judge[player_hand][comp_hand];
         // 結果表示
-        let msg="player:"+hand_text[player_hand]+"<br>"+
+        let msg=(game_num+1)+"戦目<br>"+
+            "player:"+hand_text[player_hand]+"<br>"+
             "comp:"+hand_text[comp_hand]+"<br>"+
             "結果:" + judge_text[result];
         $("#result").html(msg);
         // 勝敗ごとの処理
-        if(result == judge_win) {
-          win_num++;
-          $("#result2").html(win_num + "連勝!");
-        } else if (result == judge_draw) {
-          $("#result2").html("あいこ");
-        } else {
+        if(game_num+1 < game_max){
+          if (result == judge_draw) {
+            draw_num++;
+           $("#result2").html("あいこ");
+          } else {
+            game_num++;
+            if(result == judge_win) {
+              win_num++;
+              $("#result2").html("勝ち!");
+            } else {
+              $("#result2").html("負け…");
+            }
+          }
+        }
+        else{
           gameover();
         }
       }
@@ -90,7 +100,10 @@
           $("#highscore").html("ハイスコア：" + high_score + "連勝");
         });
   
+        
+        game_num = 0;
         win_num = 0;
+        draw_num = 0;
         // ハンドボタン表示
         $(".hand").css("display", "inline");
         // ニューゲームボタン非表示
