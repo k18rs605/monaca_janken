@@ -30,6 +30,8 @@
 
       // 連勝数記録
       let win_num = 0;
+      //勝率
+      let win_rate = 0.00;
 
       // 最大勝負数
       let game_max = 25;
@@ -94,10 +96,11 @@
         JankenScore.order(key, true).fetch()
         .then(function(result){
           high_score = result.get(key);
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          //win_rate = win_num * (100/game_num);
+          $("#highscore").html("ハイスコア：" + high_score + "勝");
         })
         .catch(function(error){
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          $("#highscore").html("ハイスコア：" + high_score + "勝");
         });
   
         
@@ -115,6 +118,7 @@
       function gameover() {
         let msg = "GAME OVER<br>";
         if(win_num>0) {
+          win_rate = win_num * (100/game_num);
           JankenScore.order(key, true).fetch()
           .then(function(result){
             high_score = result.get(key);
@@ -129,7 +133,7 @@
           db = new JankenScore();
           db.set(key, win_num).save();
 
-          msg += win_num +  "連勝でした。<br>";
+          msg += (game_num+1) + "回中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>";
         } else {
           msg += "1回も勝てませんでした。<br>次は頑張ろう";
         }
@@ -147,7 +151,7 @@
     </script>
 </head>
 <body>
-  <h1 class="text-white bg-primary">じゃんけん 連勝チャレンジ！</h1>
+  <h1 class="text-white bg-primary">じゃんけん 25回勝負！</h1>
   <div id="highscore" class="text-white bg-secondary"></div>
   <div class="mx-auto" style="width: 200px">
     <a onclick="gu();" class="btn btn-outline-primary hand" role="button">ぐー</a>
