@@ -71,8 +71,10 @@
             "comp:"+hand_text[comp_hand]+"<br>"+
             "結果:" + judge_text[result];
         $("#result").html(msg);
+         // 中断ボタン表示
+        $("#interruption").css("display", "inline");
         // 勝敗ごとの処理
-        if(game_num+1 < game_max){
+        if(game_num+1 < game_max){//*** || 
           if (result == judge_draw) {
             draw_num++;
            $("#result2").html("あいこ");
@@ -133,13 +135,15 @@
           db = new JankenScore();
           db.set(key, win_num).save();
 
-          msg += (game_num+1) + "回中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>";
+          msg += (game_num) + "回中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>";
         } else {
           msg += "1回も勝てませんでした。<br>次は頑張ろう";
         }
         $("#result2").html(msg);
         // ハンドボタン非表示
         $(".hand").css("display", "none");
+        // 中断ボタン非表示
+        $("#interruption").css("display", "none");
         // ニューゲームボタン表示
         $("#newgame").css("display", "inline");
       }
@@ -158,6 +162,7 @@
     <a onclick="choki();" class="btn btn-outline-primary hand" role="button">ちょき</a>
     <a onclick="pa();" class="btn btn-outline-primary hand" role="button">ぱー</a>
     <a onclick="newgame();" class="btn btn-info text-white" id="newgame" role="button">New Game</a>
+     <a onclick="gameover();" class="btn btn-info text-white" id="interruption" role="button">Result</a>
   </div>
   <div id="result" class="text-white bg-secondary">
   </div>
