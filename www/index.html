@@ -14,7 +14,7 @@
       const hand_choki=1;
       const hand_pa=2;
       // ハンド表示用配列
-      const hand_text = ["ぐー", "ちょき", "ぱー"];
+      const hand_text = ["グー", "チョキ", "パー"];
       // 勝敗判定用変数（定数）
       const judge_win=0;
       const judge_draw=1;
@@ -62,7 +62,7 @@
 
       function janken(player_hand){
         // コンピュータの手を決定
-       let comp_hand = Math.floor(Math.random() * 3);
+        let comp_hand = Math.floor(Math.random() * 3);
         // 勝敗判定
         let result = judge[player_hand][comp_hand];
         // 結果表示
@@ -74,23 +74,19 @@
          // 中断ボタン表示
         $("#interruption").css("display", "inline");
         // 勝敗ごとの処理
-        if(game_num+1 < game_max){//*** || 
-          if (result == judge_draw) {
-            draw_num++;
-           $("#result2").html("あいこ");
+        if (result == judge_draw) {
+          draw_num++;
+          $("#result2").html("あいこ");
           } else {
-            game_num++;
-            if(result == judge_win) {
-              win_num++;
-              $("#result2").html("勝ち!");
-            } else {
-              $("#result2").html("負け…");
-            }
+          game_num++;
+          if(result == judge_win) {
+            win_num++;
+            $("#result2").html("勝ち!");
+          } else {
+            $("#result2").html("負け…");
           }
         }
-        else{
-          gameover();
-        }
+        if(game_num >= game_max)  gameover();
       }
 
       function newgame() {
@@ -135,7 +131,7 @@
           db = new JankenScore();
           db.set(key, win_num).save();
 
-          msg += (game_num) + "回勝負中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>" + "あいこの数：" + draw_num;
+          msg += (game_num) + "回勝負中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>" + "あいこ：" + draw_num + "回";
         } else {
           msg += "1回も勝てませんでした。<br>次は頑張ろう";
         }
@@ -158,9 +154,9 @@
   <h1 class="text-white bg-primary">じゃんけん 25回勝負！</h1>
   <div id="highscore" class="text-white bg-secondary"></div>
   <div class="mx-auto" style="width: 200px">
-    <a onclick="gu();" class="btn btn-outline-primary hand" role="button">ぐー</a>
-    <a onclick="choki();" class="btn btn-outline-primary hand" role="button">ちょき</a>
-    <a onclick="pa();" class="btn btn-outline-primary hand" role="button">ぱー</a>
+    <a onclick="gu();" class="btn btn-outline-primary hand" role="button">グー</a>
+    <a onclick="choki();" class="btn btn-outline-primary hand" role="button">チョキ</a>
+    <a onclick="pa();" class="btn btn-outline-primary hand" role="button">パー</a>
     <a onclick="newgame();" class="btn btn-info text-white" id="newgame" role="button">New Game</a>
      <a onclick="gameover();" class="btn btn-info text-white" id="interruption" role="button">Result</a>
   </div>
