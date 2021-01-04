@@ -135,7 +135,7 @@
           db = new JankenScore();
           db.set(key, win_num).save();
 
-          msg += (game_num) + "回中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>";
+          msg += (game_num) + "回勝負中" + win_num +  "回勝ちました。（勝率"+ win_rate.toFixed(2) + "）<br>" + "あいこの数：" + draw_num;
         } else {
           msg += "1回も勝てませんでした。<br>次は頑張ろう";
         }
